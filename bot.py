@@ -6,6 +6,7 @@ import time, sys
 import pyttsx
 import speech_recognition as sr
 import warnings
+from subprocess import call
 
 
 mode = "text"			#Setting the default input mode
@@ -14,7 +15,7 @@ if len(sys.argv) >1:		#If the number of arguments while executing from the termi
 		mode = "voice"
 
 terminate = ['bye','goodbye','gotosleep','byebye']		#Some keywords used for termination
-
+commands = ['ls', 'cat', 'sudo apt upgrade', 'sudo apt update'] #Sample commands
 def offline_speak(botresponse):		#The function for offline speech output
 	engine = pyttsx.init()
 	engine.say(botresponse)
@@ -55,10 +56,14 @@ while True:
 		response = raw_input("Message:- ")
 	
 	if response.lower().replace(" ","") in terminate:		#Termination keywords used to break out of the script
-		botresponse = "We'll catch up later then...BYE"
-		print  botresponse
-		offline_speak(botresponse)
-		break
+	    botresponse = "We'll catch up later then...BYE"
+	    print  botresponse
+	    offline_speak(botresponse)
+	    break
+
+    if response.lower().replace(" ", "") in commands:
+        call(response)
+
 	botresponse = kernel.respond(response)		#Fetches the responses from the aiml by matching the patterns
 	print  botresponse			#Prints the response to the stdout
 	offline_speak(botresponse)		
