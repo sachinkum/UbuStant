@@ -1,0 +1,4 @@
+aiml==0.8.6
+PyAudio==0.2.11
+pyttsx==1.1
+SpeechRecognition==3.7.1
